@@ -5,6 +5,8 @@
 #import html.parser.HTMLParser
 from HTMLParser import HTMLParser
 
+metacount = 0
+
 class myHTMLParser(HTMLParser):
     def handle_comment(self, data):
         print("Encountered comment: {0}".format(data))
@@ -13,7 +15,6 @@ class myHTMLParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         global metacount
-        metacount = 0
         if tag == "meta":
             metacount += 1
         print("Encountered start tag: {0}".format(tag))
@@ -43,6 +44,8 @@ def main():
     if f.mode == "r":
         contents = f.read()
         parser.feed(contents)
+
+    print("Meta tag count: {0}".format(metacount))
 
 if __name__ == "__main__":
     main()
